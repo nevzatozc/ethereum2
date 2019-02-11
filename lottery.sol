@@ -8,15 +8,9 @@ contract Lottery {
         bool joined;
     }
     
-    struct Winneraddressstruct {
-        address  wa ;
-  }
-
-    
     mapping (address => Student) students;
     address[]  public studentAccounts;
     address chairperson;
-    address wa;
     constructor() public {
         chairperson = msg.sender;
     }
@@ -44,17 +38,13 @@ contract Lottery {
         return studentAccounts.length;
     }
     
-    function findwinnerStudent() view public returns (string, string) {
+    function findwinnerStudent()  view public returns (string, string) {
         if (chairperson != msg.sender)
             return;
         uint num_of_students = countStudents();
         uint random_number = uint(sha3(block.blockhash(block.number-1), now ))% num_of_students;
         address winner_address = studentAccounts[random_number];
-        wa = winner_address;
         return (students[winner_address].fName, students[winner_address].lName);
     }
-    function showwinnerStudent() view public returns (string, string) {
-        
-        return (students[wa].fName, students[wa].lName);
-    }
+
 }
