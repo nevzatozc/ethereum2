@@ -8,10 +8,15 @@ contract Lottery {
         bool joined;
     }
     
+    struct Winneraddressstruct {
+        address  wa ;
+  }
+
+    
     mapping (address => Student) students;
     address[]  public studentAccounts;
     address chairperson;
-    address wa ;
+    address wa;
     constructor() public {
         chairperson = msg.sender;
     }
@@ -45,7 +50,7 @@ contract Lottery {
         uint num_of_students = countStudents();
         uint random_number = uint(sha3(block.blockhash(block.number-1), now ))% num_of_students;
         address winner_address = studentAccounts[random_number];
-        wa= winner_address;
+        wa = winner_address;
         return (students[winner_address].fName, students[winner_address].lName);
     }
     function showwinnerStudent() view public returns (string, string) {
